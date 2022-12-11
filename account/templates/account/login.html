@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<style>
+  .form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.h3{
+  text-align: center;
+}
+</style>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-header text-black">
+            <h2>Login</h2>
+          </div>
+          <div class="d-flex flex-column pb-3">
+            <img class="img-fluid mx-auto d-block" src="{% static 'images\Apartment.jpg' %}" alt="Apartment" width="72" height="72">
+          </div>
+          <div class="card-body">
+              <form action="{% url 'login' %}" method="POST" novalidate>
+                {% csrf_token %}
+                   {% for field in form.visible_fields %}
+                     <div class="form-group">
+                         {{ field.label_tag }}
+                            {% render_field field class="form-control" %}
+                              {% if messages%}
+                                {% for message in messages %}
+                                  <span style="color:red">{{ message }}</span>
+                                {% endfor %}
+                               {% endif %}
+                   {% endfor %}
+                   <br>
+                       <input type="submit" value="Login" class="btn btn-block btn-primary">
+                     </div>
+              </form>
+              
+
+           </div>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
+<div class="d-flex flex-column">
+  <a class="m-auto" href="{% url 'password_reset' %}">Forget password</a>
+</div>
+
+
+
+{% endblock content %}
